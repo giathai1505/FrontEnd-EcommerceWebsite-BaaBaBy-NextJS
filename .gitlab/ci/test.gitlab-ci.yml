@@ -1,0 +1,20 @@
+# lint_tests:
+#   stage: test
+#   cache:
+#     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+#     paths:
+#       - node_modules/
+#     policy: pull
+#   allow_failure: true
+#   script:
+#   - yarn lint
+#   - yarn lint:fix"
+unit_tests:
+  stage: test
+  script: echo "running unit tests..."
+integration_tests:
+  stage: test
+  script: echo "running integration tests..."
+system_tests:
+  stage: test
+  script: echo "running system tests..."

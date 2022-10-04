@@ -1,0 +1,11 @@
+[DOCUMENTATION]
+README.md @js-fe-usum-team-core
+
+[LICENSE]
+LICENSE  @js-fe-usum-team-core
+
+[SOURCE]
+src  @js-fe-usum-team-core
+
+[CICD]
+.gitlab @js-fe-usum-team-core

@@ -1,0 +1,10 @@
+.otp-container {
+  @apply flex justify-center space-x-1 phone:space-x-1.5 laptop:space-x-2;
+  & .otp-input {
+    @apply h-6 flex-shrink-0 text-primary-1 text-xl  font-bold focus-within:ring-primary-1;
+    width: 100% !important;
+  }
+  & .otp-error {
+    @apply text-sematic-1;
+  }
+}

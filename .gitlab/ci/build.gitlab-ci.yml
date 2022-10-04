@@ -1,0 +1,47 @@
+install_dependencies:
+  stage: build
+  environment:
+    name: building/$CI_COMMIT_REF_NAME
+    url: $CI_ENVIRONMENT_SLUG
+  script:
+    - yarn install
+    - >-
+      echo "Building... from project:$CI_PROJECT_PATH, branch:$CI_COMMIT_BRANCH,
+      job_url:$CI_JOB_URL" > artifact.txt
+    - yarn build
+    - echo "Install Dependencies Success"
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - node_modules/
+  artifacts:
+    expire_in: 20 hour
+    paths:
+      - build
+      - public
+      - artifact.txt
+
+# build_docs:
+#   stage: build
+#   environment:
+#     name: building/$CI_COMMIT_REF_NAME
+#     url: $CI_ENVIRONMENT_SLUG
+#   allow_failure: true
+#   script:
+#     - yarn docs
+#     - echo "Build Docs Success"
+  # only:
+  #   - master
+# build_storybook:
+#   stage: build
+#   environment:
+#     name: building/$CI_COMMIT_REF_NAME
+#     url: $CI_ENVIRONMENT_SLUG
+#   allow_failure: true
+#   script:
+#     - yarn install
+#     - yarn build:storybook
+#     - echo "Build Docs Success"
+#   # only:
+#   #   - master
+

@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: 
+
+# Sitemaps
+Sitemap: /sitemap.xml
+Sitemap: //sitemap-0.xml
+Sitemap: /public/sitemap.xml

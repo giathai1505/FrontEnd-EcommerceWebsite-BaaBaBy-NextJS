@@ -1,0 +1,53 @@
+# release_develop:
+#   stage: release
+#   image: centos
+#   environment:
+#     name: releasing_develop/$CI_COMMIT_REF_NAME
+#     url: $CI_ENVIRONMENT_SLUG
+
+#   before_script:
+#     - cd /$BUILD_LINK
+#     - yum install which -y
+#     - "which ssh-agent || ( yum update -y && yum install openssh-server openssh-clients -y )"
+#     - eval $(ssh-agent -s)
+#     - mkdir -p ~/.ssh
+#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/gitlab
+#     - chmod 600 ~/.ssh/gitlab
+#     - eval "$(ssh-agent -s)"
+#     - ssh-add  ~/.ssh/gitlab
+#     - ssh-keyscan -H 'gitlab.com' >> ~/.ssh/known_hosts
+#     - yum install rsync -y -qq
+#     - yum install curl -y -qq
+
+#   script:
+#     - echo "Release Develop Success"
+#   only:
+#     - develop
+
+release_production:
+  stage: release
+  image: centos
+  environment:
+    name: releasing_production/$CI_COMMIT_REF_NAME
+    url: $CI_ENVIRONMENT_SLUG
+
+  before_script:
+    - cd /$BUILD_LINK
+    - yum install which -y
+    - "which ssh-agent || ( yum update -y && yum install openssh-server openssh-clients -y )"
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/gitlab
+    - chmod 600 ~/.ssh/gitlab
+    - eval "$(ssh-agent -s)"
+    - ssh-add  ~/.ssh/gitlab
+    - ssh-keyscan -H 'gitlab.com' >> ~/.ssh/known_hosts
+    - yum install rsync -y -qq
+    - yum install curl -y -qq
+
+  script:
+    - cd /$BUILD_LINK
+    - ssh -i ~/.ssh/gitlab -o StrictHostKeyChecking=no $USER_SERVER@$IP_SERVER -p $PORT_SERVER  -T "pm2 startOrReload ecosystem.config.js & pm2 list & pm2 save "
+    - echo "Release Production Success"
+  only:
+    - release

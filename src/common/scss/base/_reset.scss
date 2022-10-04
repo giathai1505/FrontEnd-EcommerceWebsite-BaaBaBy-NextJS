@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+html,
+body {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  @media screen and (max-width: 600px) {
+    font-size: 65%;
+  }
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: #300f19;
+  #root {
+    @apply h-full w-full text-neutral-1 text-md;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  display: inline;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
+}

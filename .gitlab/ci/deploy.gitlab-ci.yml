@@ -1,0 +1,58 @@
+# deploy_develop:
+#   stage: deploy
+#   image: centos
+#   environment:
+#     name: deploying_develop/$CI_COMMIT_REF_NAME
+#     url: $CI_ENVIRONMENT_SLUG
+
+#   before_script:
+#     - cd /$BUILD_LINK
+#     - yum install which -y
+#     - "which ssh-agent || ( yum update -y && yum install openssh-server openssh-clients -y )"
+#     - eval $(ssh-agent -s)
+#     - mkdir -p ~/.ssh
+#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/gitlab
+#     - chmod 600 ~/.ssh/gitlab
+#     - eval "$(ssh-agent -s)"
+#     - ssh-add  ~/.ssh/gitlab
+#     - ssh-keyscan -H 'gitlab.com' >> ~/.ssh/known_hosts
+#     - yum install rsync -y -qq
+#     - yum install curl -y -qq
+
+#   script:
+#     - cd /$BUILD_LINK/
+#     - echo "Deloy Production Success"
+
+#   only:
+#     - develop
+
+deploy_production:
+  stage: deploy
+  image: centos
+  environment:
+    name: deploying_production/$CI_COMMIT_REF_NAME
+    url: $CI_ENVIRONMENT_SLUG
+
+  before_script:
+    - cd /$BUILD_LINK
+    - yum install which -y
+    - "which ssh-agent || ( yum update -y && yum install openssh-server openssh-clients -y )"
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/gitlab
+    - chmod 600 ~/.ssh/gitlab
+    - eval "$(ssh-agent -s)"
+    - ssh-add  ~/.ssh/gitlab
+    - ssh-keyscan -H 'gitlab.com' >> ~/.ssh/known_hosts
+    - yum install rsync -y -qq
+    - yum install curl -y -qq
+
+  script:
+    - cd /$BUILD_LINK/
+    - ssh -i ~/.ssh/gitlab -o StrictHostKeyChecking=no $USER_SERVER@$IP_SERVER -p $PORT_SERVER  -T "cd /$URL_SERVER && git stash && git pull && cp .env.production .env && rm -rf build && /usr/local/bin/node-prune"
+    - rsync -avz --progress -a -e "ssh -p $PORT_SERVER" /$BUILD_LINK/build $USER_SERVER@$IP_SERVER:/$URL_SERVER
+    - rsync -avz --progress -a -e "ssh -p $PORT_SERVER" /$BUILD_LINK/public $USER_SERVER@$IP_SERVER:/$URL_SERVER
+    - echo "Deloy Production Success"
+
+  only:
+    - release
