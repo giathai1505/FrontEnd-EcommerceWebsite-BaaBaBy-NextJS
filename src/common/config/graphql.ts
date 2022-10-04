@@ -1,10 +1,4 @@
-import {
-  ApolloClient,
-  ApolloLink,
-  ApolloError,
-  createHttpLink,
-  InMemoryCache,
-} from "@apollo/client";
+import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { getToken } from "@common/utils/auth";
 import { toast } from "react-toastify";
 import { onError } from "apollo-link-error";

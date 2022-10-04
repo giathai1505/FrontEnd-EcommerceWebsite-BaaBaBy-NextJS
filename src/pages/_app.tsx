@@ -2,7 +2,6 @@ import Head from "next/head";
 import { AppProps } from "next/app";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { wrapper } from "@redux/store";
-import { useApollo } from "@common/utils/useApollo";
 import Toast from "@components/Toast";
 import PageLoading from "@components/PageLoading";
 import "@common/utils/cart";
@@ -45,7 +44,7 @@ const WebApp = (props: AppProps) => {
         <TopProgressBar />
         <Toast>
           <PageLoading />
-          <Component {...pageProps} auth={pageProps?.auth} />
+          <Component {...pageProps} />
         </Toast>
       </ApolloProvider>
     </>
