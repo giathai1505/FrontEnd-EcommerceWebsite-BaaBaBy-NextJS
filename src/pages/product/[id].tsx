@@ -9,7 +9,7 @@ import Product from "@containers/Product";
 import { listMenuHeaders } from "@constants/header";
 // import { IMenuHeader } from "@constants/header";
 import Main from "@layouts/Main";
-import Products from "@containers/Products";
+import Products from "@containers/products";
 
 interface IProduct {
   image: string;

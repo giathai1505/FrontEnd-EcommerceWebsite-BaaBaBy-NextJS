@@ -40,7 +40,7 @@ const Dropdown = <T,>(props: IListBoxProps<T>) => {
                 <MenuItems className={dropdownContainerClassName}>
                   <Menu.Items static>
                     {options.map((option, index) => (
-                      <Menu.Item key={index} onClick={() => onSelect?.(option)}>
+                      <Menu.Item key={index}>
                         {({ active }) => renderItem(option, active)}
                       </Menu.Item>
                     ))}

@@ -1,7 +1,7 @@
 import { DocumentNode } from "@apollo/client";
 import axios, { AxiosRequestConfig } from "axios";
 import { getToken } from "./auth";
-import { propertyApi } from "@common/config/graphql";
+import { client } from "@common/config/graphql";
 import { toast } from "react-toastify";
 
 export const getErrorMessage = (error: any): string => {
@@ -34,7 +34,7 @@ console.log({
 
 const graphQLCommon = async (query: DocumentNode, variables: any) => {
   try {
-    const response = await propertyApi.query({
+    const response = await client.query({
       query,
       variables,
       context: {

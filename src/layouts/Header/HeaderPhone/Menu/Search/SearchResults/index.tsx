@@ -122,13 +122,13 @@ const SearchResults: React.FC<ISearchResultsProps> = ({ keyword = "" }) => {
         </KeywordList>
       )}
       <Line />
-      {RESULTS?.length > 0 && (
+      {/* {RESULTS?.length > 0 && (
         <ResultList>
           {RESULTS.slice(0, SHOW_MAX_ITEM).map(result => {
             return <ResultItem {...result} />;
           })}
         </ResultList>
-      )}
+      )} */}
     </ResultBox>
   );
 };

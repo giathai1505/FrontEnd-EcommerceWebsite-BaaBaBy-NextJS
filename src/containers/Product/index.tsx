@@ -1,4 +1,3 @@
-import fragmentGetAllProduct from "@services/product";
 import { useEffect, useState } from "react";
 
 interface IProduct {}
